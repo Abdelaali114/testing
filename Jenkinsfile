@@ -74,25 +74,26 @@ pipeline {
         }
 
         stage('Run Containers') {
-            steps {
-                script {
-                    def UNIQUE_ID = UUID.randomUUID().toString().take(8)
-                    echo 'Running containers...'
-                    sh """
-                    # Ensure the network exists
-                    docker network inspect alumni-network >/dev/null 2>&1 || docker network create alumni-network
+           steps {
+              script {
+              def UNIQUE_ID = UUID.randomUUID().toString().take(8)
+              echo 'Running containers...'
+              sh """
+                # Ensure the network exists
+                docker network inspect alumni-network >/dev/null 2>&1 || docker network create alumni-network
 
-                    # Run the server container with the correct MONGO_URL
-                    docker run -d --name alumni-server-${UNIQUE_ID} --network alumni-network -p 3001:3001 \
-                        -e MONGO_URL=${MONGO_URL} ${BACKEND_IMAGE}
+                # Run the server container with the correct MONGO_URL
+                docker run -d --name alumni-server-${UNIQUE_ID} --network alumni-network -p 3001:3001 \
+                   -e MONGO_URL="${MONGO_URL}" ${BACKEND_IMAGE}
 
-                    # Run the client container with the correct VITE_API_URL
-                    docker run -d --name alumni-client-${UNIQUE_ID} --network alumni-network -p 5173:5173 \
-                        -e VITE_API_URL=http://alumni-server-${UNIQUE_ID}:3001 ${FRONTEND_IMAGE}
-                    """
+                # Run the client container with the correct VITE_API_URL
+                docker run -d --name alumni-client-${UNIQUE_ID} --network alumni-network -p 5173:5173 \
+                  -e VITE_API_URL="http://alumni-server-${UNIQUE_ID}:3001" ${FRONTEND_IMAGE}
+                """
                 }
             }
         }
+
     }
 
     post {
