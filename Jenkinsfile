@@ -31,43 +31,38 @@ pipeline {
             steps {
                 echo 'Stopping and removing previous containers...'
                 sh '''
-                docker-compose down -v || true
-                docker container prune -f
+                docker stop alumni-server || true
+                docker rm alumni-server || true
+                docker stop alumni-client || true
+                docker rm alumni-client || true
+                docker container prune -f || true
+                docker network rm alumni-network || true
                 '''
             }
         }
 
-        stage('Install Client & Server Dependencies') {
-            steps {
-                echo 'Installing dependencies...'
-                sh '''
-                cd server
-                npm install 
-                cd ../client
-                npm install
-                '''
+        stage('Build and Push Images') {
+            parallel {
+                stage('Build Client Image') {
+                    steps {
+                        echo 'Building client image...'
+                        sh '''
+                        docker build -t ${FRONTEND_IMAGE} -f client/Dockerfile client
+                        '''
+                    }
+                }
+                stage('Build Server Image') {
+                    steps {
+                        echo 'Building server image...'
+                        sh '''
+                        docker build -t ${BACKEND_IMAGE} -f server/Dockerfile server
+                        '''
+                    }
+                }
             }
         }
 
-        stage('Build Client Image') {
-            steps {
-                echo 'Building client image...'
-                sh '''
-                docker build -t ${FRONTEND_IMAGE} -f client/Dockerfile client
-                '''
-            }
-        }
-
-        stage('Build Server Image') {
-            steps {
-                echo 'Building server image...'
-                sh '''
-                docker build -t ${BACKEND_IMAGE} -f server/Dockerfile server
-                '''
-            }
-        }
-
-        stage('Pushing Images') {
+        stage('Push Images') {
             steps {
                 echo 'Pushing images to Docker Hub...'
                 withCredentials([usernamePassword(credentialsId: REGISTRY_CREDS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
@@ -79,15 +74,20 @@ pipeline {
                 }
             }
         }
+
         stage('Run Containers') {
             steps {
-                echo 'Running containers...'
-                sh '''
-                docker network create alumni-network || true  
-                docker run -d --name alumni-server --network alumni-network -p 3001:3001 ${BACKEND_IMAGE}
-                docker run -d --name alumni-client --network alumni-network -p 5173:5173 \
-                -e VITE_API_URL=http://alumni-server:3001 ${FRONTEND_IMAGE}
-                '''
+                script {
+                    def UNIQUE_ID = UUID.randomUUID().toString().take(8)
+                    echo 'Running containers...'
+                    sh """
+                    docker network create alumni-network || true
+
+                    docker run -d --name alumni-server-${UNIQUE_ID} --network alumni-network -p 3001:3001 ${BACKEND_IMAGE}
+                    docker run -d --name alumni-client-${UNIQUE_ID} --network alumni-network -p 5173:5173 \
+                      -e VITE_API_URL=http://alumni-server-${UNIQUE_ID}:3001 ${FRONTEND_IMAGE}
+                    """
+                }
             }
         }
     }
