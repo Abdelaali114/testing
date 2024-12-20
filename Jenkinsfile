@@ -24,8 +24,8 @@ pipeline {
             steps {
                 echo 'Stopping and removing previous containers...'
                 sh '''
-                sudo docker-compose down -v 
-                sudo docker container prune -f
+                 docker-compose down -v 
+                 docker container prune -f
                 '''
             }
         }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 echo 'Starting new build with Docker Compose...'
                 sh '''
-                sudo docker-compose up --build -d
+                 docker-compose up --build -d
                 '''
             }
         }
