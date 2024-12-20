@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  web:
+    depends_on:
+      - api
+    build: ./client
+    ports:
+      - 5173:5173
+    environment:
+      VITE_API_URL: http://localhost:3001
+
+  api:
+    depends_on:
+      - db
+    build: ./server
+    ports:
+      - 3001:3001
+    environment:
+      MONGO_URL: mongodb://db/Alumni
+      PORT: 3001
+
+  db:
+    image: mongo:4.4
+    ports:
+      - 27017:27017
+    volumes:
+      - Alumni:/data/db
+
+volumes:
+  Alumni:
