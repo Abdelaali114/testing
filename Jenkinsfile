@@ -31,12 +31,9 @@ pipeline {
             steps {
                 echo 'Stopping and removing previous containers...'
                 sh '''
-                docker stop alumni-server || true
-                docker rm alumni-server || true
-                docker stop alumni-client || true
-                docker rm alumni-client || true
-                docker container prune -f || true
-                docker network rm alumni-network || true
+                docker stop $(docker ps -q --filter "name=alumni-") || true
+                docker rm $(docker ps -a -q --filter "name=alumni-") || true
+                docker network inspect alumni-network >/dev/null 2>&1 && docker network rm alumni-network || true
                 '''
             }
         }
@@ -81,9 +78,13 @@ pipeline {
                     def UNIQUE_ID = UUID.randomUUID().toString().take(8)
                     echo 'Running containers...'
                     sh """
-                    docker network create alumni-network || true
+                    # Ensure the network exists
+                    docker network inspect alumni-network >/dev/null 2>&1 || docker network create alumni-network
 
+                    # Run the server container
                     docker run -d --name alumni-server-${UNIQUE_ID} --network alumni-network -p 3001:3001 ${BACKEND_IMAGE}
+
+                    # Run the client container
                     docker run -d --name alumni-client-${UNIQUE_ID} --network alumni-network -p 5173:5173 \
                       -e VITE_API_URL=http://alumni-server-${UNIQUE_ID}:3001 ${FRONTEND_IMAGE}
                     """
