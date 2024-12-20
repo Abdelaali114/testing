@@ -83,8 +83,10 @@ pipeline {
             steps {
                 echo 'Running containers...'
                 sh '''
-                docker run -d --name alumni-server -p 3001:3001 ${BACKEND_IMAGE}
-                docker run -d --name alumni-client -p 5173:5173 ${FRONTEND_IMAGE}
+                docker network create alumni-network || true  
+                docker run -d --name alumni-server --network alumni-network -p 3001:3001 ${BACKEND_IMAGE}
+                docker run -d --name alumni-client --network alumni-network -p 5173:5173 \
+                -e VITE_API_URL=http://alumni-server:3001 ${FRONTEND_IMAGE}
                 '''
             }
         }
