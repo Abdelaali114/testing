@@ -6,6 +6,7 @@ pipeline {
         BACKEND_IMAGE = "${DOCKERHUB_USERNAME}/alumni-server:v1.0"
         FRONTEND_IMAGE = "${DOCKERHUB_USERNAME}/alumni-client:v1.0"
         REGISTRY_CREDS = "dockerhub"
+        MONGO_URL = 'mongodb+srv://abdellaalimohamad4321:MxsgKy0SdWZfb0c7@devcluster.auivf.mongodb.net/?retryWrites=true&w=majority&appName=devCluster'  // MongoDB Atlas URL
     }
 
     stages {
@@ -82,11 +83,12 @@ pipeline {
                     docker network inspect alumni-network >/dev/null 2>&1 || docker network create alumni-network
 
                     # Run the server container
-                    docker run -d --name alumni-server-${UNIQUE_ID} --network alumni-network -p 3001:3001 ${BACKEND_IMAGE}
+                    docker run -d --name alumni-server-${UNIQUE_ID} --network alumni-network -p 3001:3001 \
+                        -e MONGO_URL=${MONGO_URL} ${BACKEND_IMAGE}
 
                     # Run the client container
                     docker run -d --name alumni-client-${UNIQUE_ID} --network alumni-network -p 5173:5173 \
-                      -e VITE_API_URL=http://alumni-server-${UNIQUE_ID}:3001 ${FRONTEND_IMAGE}
+                        -e VITE_API_URL=http://alumni-server-${UNIQUE_ID}:3001 ${FRONTEND_IMAGE}
                     """
                 }
             }
