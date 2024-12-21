@@ -81,6 +81,9 @@ pipeline {
                     sh """
                         # Ensure the network exists
                         docker network inspect alumni-network >/dev/null 2>&1 || docker network create alumni-network
+                        
+                        # Pull MongoDB image
+                        docker pull mongo
 
                         # Run MongoDB container
                         docker run -d --name mongodb --network alumni-network -p 27017:27017 mongo
