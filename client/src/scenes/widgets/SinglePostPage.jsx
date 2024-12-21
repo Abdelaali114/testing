@@ -14,7 +14,7 @@ const SinglePostPage = () => {
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/posts/${postId}`, {
+      const response = await fetch(`http://alumni-server-${UNIQUE_ID}:3001/posts/${postId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

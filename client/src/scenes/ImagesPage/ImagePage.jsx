@@ -27,7 +27,7 @@ const ImagePage = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/albums");
+        const response = await axios.get("http://alumni-server-${UNIQUE_ID}:3001/albums");
         setAlbums(response.data);
       } catch (error) {
         console.error("Error fetching albums", error);
@@ -88,7 +88,7 @@ const ImagePage = () => {
                 <Card sx={{ maxWidth: 250 }}>
                   <CardMedia
                     component="img"
-                    image={`http://localhost:3001/assets/${album.images[0]}`}
+                    image={`http://alumni-server-${UNIQUE_ID}:3001/assets/${album.images[0]}`}
                     alt={album.title}
                     sx={{
                       width: "100%",

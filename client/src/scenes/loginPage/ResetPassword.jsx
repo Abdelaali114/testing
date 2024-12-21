@@ -15,7 +15,7 @@ function ResetPassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:3001/reset-password/${id}/${token}`, { password })
+      .post(`http://alumni-server-${UNIQUE_ID}:3001/reset-password/${id}/${token}`, { password })
       .then((res) => {
         if (res.data.Status === "Success") {
           toast.success("Password Successfully Updated")

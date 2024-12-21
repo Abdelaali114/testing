@@ -11,7 +11,7 @@ const Allvideo = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/videos");
+        const response = await axios.get("http://alumni-server-${UNIQUE_ID}:3001/videos");
         setVideos(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("Error fetching videos", error);
@@ -25,7 +25,7 @@ const Allvideo = () => {
   // Handle watch video click
   const handleWatchVideo = async (video) => {
     try {
-      await axios.put(`http://localhost:3001/videos/${video._id}/view`);
+      await axios.put(`http://alumni-server-${UNIQUE_ID}:3001/videos/${video._id}/view`);
       // Navigate to the Videoplayer
       navigate("/Revu/Videoplayer", { state: { video } });
     } catch (error) {
@@ -47,7 +47,7 @@ const Allvideo = () => {
 
                   <Box
                     component="img"
-                    src={`http://localhost:3001/assets/${video.picturePath}`}
+                    src={`http://alumni-server-${UNIQUE_ID}:3001/assets/${video.picturePath}`}
                     alt="video thumbnail"
                     sx={{
                       display: "block",
@@ -78,7 +78,7 @@ const Allvideo = () => {
                     borderRadius: "50%",
                     objectFit: "cover",
                   }}
-                  src={`http://localhost:3001/assets/${video.provider.picturePath}`}
+                  src={`http://alumni-server-${UNIQUE_ID}:3001/assets/${video.provider.picturePath}`}
                   alt={`user`}
                 />
 

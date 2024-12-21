@@ -271,7 +271,7 @@ const CommunityMessages = () => {
 
         <div className="flex gap-3">
           <a
-            href="http://localhost:9000/"
+            href="http://alumni-server-${UNIQUE_ID}:9000/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -381,7 +381,7 @@ const CommunityMessages = () => {
                             className={`text-xs font-semibold py-1 px-3 rounded-md`}
                           >
                             <a
-                              href={`http://localhost:3001${msg.document}`}
+                              href={`http://alumni-server-${UNIQUE_ID}:3001${msg.document}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={`text-[15px] no-underline hover:underline ${

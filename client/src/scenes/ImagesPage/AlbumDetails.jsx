@@ -36,7 +36,7 @@ const AlbumDetails = () => {
     const fetchAlbumDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/albums/${albumId}`
+          `http://alumni-server-${UNIQUE_ID}:3001/albums/${albumId}`
         ); // Fetch album by ID
         setAlbum(response.data);
       } catch (error) {
@@ -75,7 +75,7 @@ const AlbumDetails = () => {
         <Grid item xs={12} sm={6} md={4} key={index}>
           <CardMedia
             component="img"
-            image={`http://localhost:3001/assets/${image}`}
+            image={`http://alumni-server-${UNIQUE_ID}:3001/assets/${image}`}
             alt={`Image ${index + 1}`}
             sx={{
               width: "100%",
@@ -101,7 +101,7 @@ const AlbumDetails = () => {
         }}
       >
         <img
-          src={`http://localhost:3001/assets/${selectedImage}`} // Display selected image
+          src={`http://alumni-server-${UNIQUE_ID}:3001/assets/${selectedImage}`} // Display selected image
           alt="Selected"
           style={{
             maxWidth: "100%",

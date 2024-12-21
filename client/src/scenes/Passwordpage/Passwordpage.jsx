@@ -53,7 +53,7 @@ const Form = () => {
  
   const changePassword = async (token, newPassword) => {
     try {
-      const response = await fetch("http://localhost:3001/changepassword/pass", {
+      const response = await fetch("http://alumni-server-${UNIQUE_ID}:3001/changepassword/pass", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const Form = () => {
   const login = async (values, onSubmitProps) => {
     try {
     
-      const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+      const loggedInResponse = await fetch("http://alumni-server-${UNIQUE_ID}:3001/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: values.email, password: values.password }),

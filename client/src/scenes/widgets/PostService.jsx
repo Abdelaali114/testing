@@ -25,7 +25,7 @@ const PostService = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/services", {
+      const response = await axios.post("http://alumni-server-${UNIQUE_ID}:3001/services", {
         ...formData,
         provider: userId,
       });

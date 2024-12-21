@@ -76,7 +76,7 @@ const UploadVideo = () => {
     }
 
     try {
-      await axios.post("http://localhost:3001/videos", formDataToSend, {
+      await axios.post("http://alumni-server-${UNIQUE_ID}:3001/videos", formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

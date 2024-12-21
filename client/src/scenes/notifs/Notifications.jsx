@@ -30,7 +30,7 @@ const Notifications = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/notifications/${user._id}`,
+        `http://alumni-server-${UNIQUE_ID}:3001/notifications/${user._id}`,
         {
           method: "GET",
           headers: {

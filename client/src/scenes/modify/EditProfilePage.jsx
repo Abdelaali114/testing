@@ -35,7 +35,7 @@ const EditProfilePage = ({ onClose }) => {
     const getUser = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:3001/users/${userId}`, {
+        const response = await fetch(`http://alumni-server-${UNIQUE_ID}:3001/users/${userId}`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -75,7 +75,7 @@ const EditProfilePage = ({ onClose }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+      const response = await fetch(`http://alumni-server-${UNIQUE_ID}:3001/users/${userId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

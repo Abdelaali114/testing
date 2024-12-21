@@ -31,7 +31,7 @@ const Videoplayer = () => {
               controls
               width="100%"
               height="560px"
-              src={`http://localhost:3001/assets/${video.videoPath}`}
+              src={`http://alumni-server-${UNIQUE_ID}:3001/assets/${video.videoPath}`}
               style={{ borderRadius: "10px", marginBottom: "20px" }}
             />
             <Box display="flex" alignItems="center" gap={2} mt={2}>
@@ -44,7 +44,7 @@ const Videoplayer = () => {
                   borderRadius: "50%",
                   objectFit: "cover",
                 }}
-                src={`http://localhost:3001/assets/${video.provider.picturePath}`}
+                src={`http://alumni-server-${UNIQUE_ID}:3001/assets/${video.provider.picturePath}`}
                 alt="user"
               />
 

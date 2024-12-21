@@ -39,7 +39,7 @@ const JobPostForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/api/job-posts', formData, {
+      const response = await axios.post('http://alumni-server-${UNIQUE_ID}:3001/api/job-posts', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

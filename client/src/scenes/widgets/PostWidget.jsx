@@ -59,7 +59,7 @@ const PostWidget = ({
  // Fetch the current reaction for the post on mount
  useEffect(() => {
   const fetchCurrentReaction = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/reaction?userId=${loggedInUserId}`, {
+    const response = await fetch(`http://alumni-server-${UNIQUE_ID}:3001/posts/${postId}/reaction?userId=${loggedInUserId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ const PostWidget = ({
  //
 
  const patchLike = async (reaction) => {
-  const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+  const response = await fetch(`http://alumni-server-${UNIQUE_ID}:3001/posts/${postId}/like`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ const PostWidget = ({
 };
 
 const patchUnlike = async () => {
-  const response = await fetch(`http://localhost:3001/posts/${postId}/unlike`, {
+  const response = await fetch(`http://alumni-server-${UNIQUE_ID}:3001/posts/${postId}/unlike`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -195,7 +195,7 @@ const handleReact = async (reaction) => {
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={`http://alumni-server-${UNIQUE_ID}:3001/assets/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">
@@ -247,7 +247,7 @@ const handleReact = async (reaction) => {
       <SharePopup
         open={sharePopupOpen}
         handleClose={handleShareClose}
-        url={`http://localhost:5173/posts/${postId}`} // Adjust the URL as needed
+        url={`http://alumni-server-${UNIQUE_ID}:5173/posts/${postId}`} // Adjust the URL as needed
       />
     </WidgetWrapper>
   );

@@ -23,7 +23,7 @@ const AddAlbum = ({ handleClose }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/albums",
+        "http://alumni-server-${UNIQUE_ID}:3001/albums",
         formData,
         {
           headers: {

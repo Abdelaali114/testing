@@ -80,19 +80,19 @@ const UserWidget = ({ userId, picturePath }) => {
       const data = { link: tempLink, userId: userId };
       switch (dialogType) {
         case "resume":
-          url = "http://localhost:3001/api/updateResumeLink";
+          url = "http://alumni-server-${UNIQUE_ID}:3001/api/updateResumeLink";
           setResumeLink(tempLink);
           break;
         case "portfolio":
-          url = "http://localhost:3001/api/updatePortfolioLink";
+          url = "http://alumni-server-${UNIQUE_ID}:3001/api/updatePortfolioLink";
           setPortfolioLink(tempLink);
           break;
         case "phonenumber":
-          url = "http://localhost:3001/api/updatePhoneNumber";
+          url = "http://alumni-server-${UNIQUE_ID}:3001/api/updatePhoneNumber";
           setPhoneNumber(tempLink);
           break;
         case "linkedin":
-          url = "http://localhost:3001/api/updateLinkedInLink";
+          url = "http://alumni-server-${UNIQUE_ID}:3001/api/updateLinkedInLink";
           setLinkedInLink(tempLink);
           break;
         default:
@@ -110,7 +110,7 @@ const UserWidget = ({ userId, picturePath }) => {
 
   const getUser = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+      const response = await fetch(`http://alumni-server-${UNIQUE_ID}:3001/users/${userId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });

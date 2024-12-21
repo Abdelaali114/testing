@@ -15,7 +15,7 @@ const SearchUser = ({ onClose }) => {
   const theme = useTheme();
 
   const handleSearchUser = async () => {
-    const URL = "http://localhost:3001/search/users";
+    const URL = "http://alumni-server-${UNIQUE_ID}:3001/search/users";
     try {
       setLoading(true);
       const response = await axios.post(URL, {

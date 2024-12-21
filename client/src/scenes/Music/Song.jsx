@@ -7,7 +7,7 @@ const Song = ({ currentSong }) => {
     <div className={`flex flex-col items-center text-center p-20 ${palette.mode === "dark" ? "bg-[#1a1a1a]" : "bg-white"} shadow-lg h-[60vh]`}>
       {/* Song Cover Image */}
       <img
-        src={`http://localhost:3001/covers/${currentSong.cover}`}
+        src={`http://alumni-server-${UNIQUE_ID}:3001/covers/${currentSong.cover}`}
         className="  md:w-48 md:h-48 object-cover shadow-md mb-8"
       />
 

@@ -20,7 +20,7 @@ const SearchUser = ({ onClose, userId, open }) => {
   const [search, setSearch] = useState("");
   const getFriends = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${userId}/friends`,
+      `http://alumni-server-${UNIQUE_ID}:3001/users/${userId}/friends`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -43,7 +43,7 @@ const SearchUser = ({ onClose, userId, open }) => {
   }, [userId, token, dispatch]);
 
   const handleSearchPromo = async () => {
-    const URL = "http://localhost:3001/search/promo";
+    const URL = "http://alumni-server-${UNIQUE_ID}:3001/search/promo";
     try {
       setLoading(true);
       const response = await axios.post(URL, {
