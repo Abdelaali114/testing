@@ -86,7 +86,7 @@ pipeline {
                         docker stop mongodb || true
                         docker rm mongodb || true
                         docker network inspect alumni-network >/dev/null 2>&1 || docker network create alumni-network
-                        docker run -d --name mongodb --network alumni-network -p 27017:27017 mongo
+                        docker run -d --name mongodb --network alumni-network -p 27017:27017 mongo:4.4
 
                         # Run the server container with the correct MONGO_URL
                         docker run -d --name alumni-server-${UNIQUE_ID} --network alumni-network -p 3001:3001 \
