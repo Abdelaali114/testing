@@ -14,7 +14,7 @@ function ForgotPassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://alumni-server:3001/forgot-password", { email })
+      .post("http://localhost:3001/forgot-password", { email })
       .then((res) => {
         if (res.data.Status === "Success") {
           toast.success("Please Check Your Email");
